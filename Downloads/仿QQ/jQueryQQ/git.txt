@@ -1,0 +1,2 @@
+git add .  添加至暂存区
+git commit -m ""提交至暂存区
