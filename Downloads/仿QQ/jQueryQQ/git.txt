@@ -1,2 +1,5 @@
 git add .  添加至暂存区
 git commit -m ""提交至暂存区
+git pull 拉取远程仓库的代码
+git push  username password  推送暂存区代码至远程
+ 
