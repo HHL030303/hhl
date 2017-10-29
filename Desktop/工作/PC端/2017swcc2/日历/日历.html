@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<style>
+			* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-family: "微软雅黑";
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Chrome/Safari/Opera */
+	-khtml-user-select: none; /* Konqueror */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none;  Non-prefixed version, currently
+}
+
+input {
+	outline: none;
+}
+
+ul {
+	list-style: none;
+}
+
+img {
+	border: none;
+	
+	display: block;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:active,
+a:hover {
+	outline: 0
+}
+
+.box {
+	display: -webkit-box;
+	-webkit-box-pack: justify;
+	-webkit-box-align: center;
+}
+select{
+	box-sizing: content-box;
+}
+.transition {
+	-webkit-transition: all .15s linear;
+	-moz-transition: all .15s linear;
+	-ms-transition: all .15s linear;
+	-o-transition: all .15s linear;
+	transition: all .15s linear;
+}
+
+body {
+	min-width: 1000px;
+	width: 100%;
+}
+
+.container {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.img {
+	display: block;
+	vertical-align: middle;
+}
+
+button {
+	-webkit-appearance: none;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.clearfix {
+	zoom: 1;
+}
+
+.clearfix:after {
+	content: "";
+	height: 0;
+	clear: both;
+	display: table;
+}
+#app{
+	padding: 10px;
+    width: 385px;
+    margin: 100px auto;
+    border: 2px solid #0000FF;
+    height: 320px;
+}
+.top_left>div{
+	height: 26px;
+	line-height: 26px;
+	text-align: center;
+	margin: 5px;
+}
+.yearShow{
+	width: 80px;
+}
+.monthShow{
+	width: 100px;
+}
+.back_today{
+	height: 26px;
+	text-align: center;
+	line-height: 26px;
+	margin: 5px;
+	box-sizing: border-box;
+	border: 1px solid #999;
+	padding: 0 8px;
+	
+}
+.back_today a{
+	color: #000000;
+}
+.jiaqi{
+	box-sizing: border-box;
+	border: 1px solid #999;
+	padding: 0 5px;
+}
+.monthShow{
+	font-size: 0;
+}
+.arror{
+	display: inline-block;
+    width: 21px;
+    border: 1px solid #999;
+    border-bottom-color: #d8d8d8;
+    background: #fafafa;
+    height: 24px;
+    text-align: center;
+    line-height: 24px;
+    text-decoration: none;
+    color: #7a7a7a;
+    font-weight: 700;
+    font-family: Simsun,Simhei,sans-serif;
+    z-index: 205;
+    font-size: 14px;
+}
+.select{
+	height: 24px;
+	border: none;
+	outline: none;
+	border-top:1px solid  #999;
+	border-bottom: 1px solid #999;
+}
+.selectYear{
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	line-height: 24px;
+	height: 24px;
+	border-top:1px solid  #999;
+	border-bottom: 1px solid #999;
+	
+}
+.ol{
+	height: 30px;
+}
+.ul{
+	/*height: 200px;*/
+}
+.cen li{
+	float: left;
+	width: 55px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	list-style: none;
+	cursor: pointer;
+}
+.cen li:hover{
+	background: #555;
+	color: white;
+}
+.today{
+	background: red;
+	color: white;
+}
+
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="header clearfix">
+				<div class="left top_left clearfix">
+						<div class="left yearShow">
+							<select name="" id="selectYear" class="selectYear">
+							</select>
+						</div>
+						<div class="left monthShow">
+							<span class="arror arrLeft"><</span>
+							<select class="select" id='selectMonth'>
+								<option value="1月">1月</option>
+								<option value="2月">2月</option>
+								<option value="3月">3月</option>
+								<option value="4月">4月</option>
+								<option value="5月">5月</option>
+								<option value="6月">6月</option>
+								<option value="7月">7月</option>
+								<option value="8月">8月</option>
+								<option value="9月">9月</option>
+								<option value="10月">10月</option>
+								<option value="11月">11月</option>
+								<option value="12月">12月</option>
+							</select>
+							<span class="arror arrNext">></span>
+						</div>
+						<div class="right jiaqi">
+							假期安排
+						</div>
+				</div>
+				<div class="right back_today">
+					<a href="javascript:;">返回今天</a>
+				</div>
+			</div>
+			<div class="cen">
+				<div class="thead">
+					<ul class="ol">
+						<!--<li></li>-->
+					</ul>
+				</div>
+				<div class="tbody">
+					<ul class="ul">
+						<!--<li></li>-->
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script>
+		
+			var app =document.getElementById("app");
+			var monthArr =['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+			var dayArr =['31','28','31','30','31','30','31','31','30','31','30','31'];
+			var weekDayArr =['日','一','二','三','四','五','六'];
+//			var firstDay =new Date(year,month,day);
+//			var s =firstDay.getDay();
+//			console.log(s);
+			//判断是否是闰年
+			function isBissextile(year){     
+			 var isBis = false;     
+			 if (0==year%4&&((year%100!=0)||(year%400==0))) {     
+			 	 isBis = true;     
+			 }     
+			 return isBis;     
+			} ;
+			
+			function Calender(id){
+				this.obj =document.getElementById(id);
+				this.flag =false;
+			};
+			Calender.prototype.init =function(){
+				var self =this;
+				var date =new Date();
+				this.year =date.getFullYear();  //2017
+				this.month =date.getMonth()*1;  //10
+				this.day =date.getDate();  //31
+				console.log(this.obj);
+				var selectYear =document.getElementById('selectYear'); //获取当前的年份
+				var selectMonth =document.getElementById('selectMonth');//获取当前的月份
+				this.theads =this.obj.getElementsByClassName('ol')[0];
+				this.tbodys =this.obj.getElementsByClassName('ul')[0];  //获取当前的日期的div
+				var arrLeft =this.obj.getElementsByClassName('arrLeft')[0];
+				var arrRight =this.obj.getElementsByClassName('arrNext')[0];
+				for(let j=0;j<weekDayArr.length;j++){
+					let node=document.createElement("li");
+					let textnode=document.createTextNode(weekDayArr[j]);
+					node.appendChild(textnode);
+					this.theads.appendChild(node);
+				};
+				for(let j=1900;j<2099;j++){
+					let options =document.createElement('option');
+					let node =document.createTextNode(j+'年');
+					options.value=j;
+					options.appendChild(node);
+					selectYear.appendChild(options);
+				};
+				
+				var fullMonth,fullyear,fullDate,currentMonth,paramsMonth,currentMonthIndex;
+				 currentMonthIndex =selectMonth.selectedIndex;
+//				 for(let i=0;i<monthArr.length;i++){
+//				 	if(parseInt(this.month)==parseInt(monthArr[i]))
+//				 		currentMonthIndex =i;
+//				 }
+				 currentYearIndex =selectYear.selectedIndex;
+				 currentMonthIndex =this.month;
+				 selectYear.value= this.year;
+				 console.log(selectYear);
+				 selectMonth.value =monthArr[this.month];
+				 self.change(this.month,this.year,this.month,1,this.day);
+				var MonthLength =selectMonth.options.length;
+				paramsMonth =parseInt(selectMonth.options[currentMonthIndex].value)-1;
+				
+				arrLeft.onclick =function(){
+					if(currentMonthIndex==0){
+						currentMonthIndex =selectMonth.options.length-1;
+					}else{
+						currentMonthIndex--
+					}
+					currentMonth =selectMonth.options[currentMonthIndex].value;
+					selectMonth.value =currentMonth;
+					fullMonth =parseInt(currentMonth)-1;
+					fullyear =parseInt(selectYear.value);
+					self.flag =true;
+					self.change(currentMonthIndex,fullyear,fullMonth,1);
+					
+				};
+				arrRight.onclick =function(){
+					if(currentMonthIndex==selectMonth.options.length-1){
+						currentMonthIndex =0;
+					}else{
+						currentMonthIndex++
+					}
+//					alert(currentMonthIndex)
+				 currentMonth =selectMonth.options[currentMonthIndex].value;
+					selectMonth.value =currentMonth;
+					fullMonth =parseInt(currentMonth)-1;
+					fullyear =parseInt(selectYear.value);
+					self.flag =true;
+					self.change(currentMonthIndex,fullyear,fullMonth,1);
+					
+				};
+				selectMonth.onchange =function(){
+					currentMonthIndex =selectMonth.selectedIndex;  //当前月份下的天数
+					 currentMonth =selectMonth.options[currentMonthIndex].value;
+					 //传入的月份参数
+					 paramsMonth =parseInt(currentMonth)-1;
+					 fullyear =parseInt(selectYear.value);
+					 console.log(fullyear,currentMonth,1);
+					 self.flag =true;
+					self.change(currentMonthIndex,fullyear,paramsMonth,1);
+					
+				};
+				selectYear.onchange =function(){
+					currentYearIndex =selectYear.selectedIndex;
+					 fullyear =selectYear.options[currentYearIndex].value
+					 console.log(currentMonthIndex);
+					 console.log(currentMonthIndex,fullyear,paramsMonth,1);
+					 self.flag =true;
+					 self.change(currentMonthIndex,fullyear,paramsMonth,1);
+					
+				}
+				
+			};
+			Calender.prototype.change =function(index,year,month,num){
+				console.log(this.flag)
+				if(this.flag){
+					this.tbodys.innerHTML ='';
+					var firstDay =new Date(year,month,num);
+					var s =parseInt(firstDay.getDay()) ;
+					var nowDateNum =parseInt(dayArr[index]) ;
+					console.log(nowDateNum);
+					console.log(s);
+					var row  =Math.ceil((nowDateNum+s)/7);
+					console.log(row)
+					for(let i=0;i<row;i++){
+						var divs =document.createElement('div');
+						for(let k=0;k<7;k++){
+							var idx =7*i+k;
+							var date =idx-s+1;
+							(date <= 0 || date >dayArr[month]) ? date = '': date = idx - s + 1;    //索引小于等于0或者大于月份最大值就用空表格代替\
+//							alert(date)
+							var td =document.createElement('li');
+							var node =document.createTextNode(date);
+							td.appendChild(node); 
+							divs.appendChild(td)
+						}
+						this.tbodys.appendChild(divs)	
+					}
+				}else{
+					var firstDay =new Date(this.year,this.month,num);
+					console.log(this.year,this.month,num);
+					var s =parseInt(firstDay.getDay()) ;
+//					var nowDateNum =parseInt(dayArr[index]) ;
+					var row  =Math.ceil((this.day*1+s)/7);
+//					alert(row);
+					for(let i=0;i<row;i++){
+						var divs =document.createElement('div');
+						for(let k=0;k<7;k++){
+							var idx =7*i+k;
+							var date =idx-s+1;
+						(date <= 0 || date >dayArr[this.month]) ? date = '': date = idx - s + 1;    //索引小于等于0或者大于月份最大值就用空表格代替\
+							var td =document.createElement('li');
+							var node =document.createTextNode(date);
+							td.appendChild(node);
+							divs.appendChild(td)
+						}
+						this.tbodys.appendChild(divs)	
+					}
+					this.tbodys.getElementsByTagName('li')[this.day-1].className='today';
+				};
+				//找到高亮的日子
+				
+					
+			}
+		var cal =new Calender('app');
+		console.log(cal)
+		cal.init()
+		</script>
+	</body>
+</html>
